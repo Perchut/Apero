@@ -1,0 +1,28 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un Bar - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+	    <div class="flash-notice">
+	        {{ flashMessage }}
+	    </div>
+	{% endfor %}
+
+	<h3>Bar - {{ bar.nom }}</h3>
+
+	<div>
+    	Adresse: {{ bar.adresse }}<br />
+    	Descrition: {{ bar.description }}<br />
+	</div>
+
+	<div>
+  		<a href="{{ path('apero_bar_homepage') }}">Retour à la liste</a>
+  		<a href="{{ path('apero_bar_edit', {'id': bar.id}) }}">Modifier</a>
+  		<a href="{{ path('apero_bar_delete', {'id': bar.id}) }}">Supprimer</a>
+	</div>
+	
+{% endblock %}

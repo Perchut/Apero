@@ -1,0 +1,29 @@
+apero_event_homepage:
+    path:     /Event/{name}
+    defaults: { _controller: AperoEventBundle:Event:index }
+
+apero_bar_homepage:
+    path:     /Bar/list
+    defaults: { _controller: AperoEventBundle:Bar:index }
+
+apero_bar_add:
+    path:     /Bar/add
+    defaults: { _controller: AperoEventBundle:Bar:add }
+
+apero_bar_view:
+    path:     /Bar/{id}
+    defaults: { _controller: AperoEventBundle:Bar:view, id: 1 }
+    requirements:
+        id: \d+
+
+apero_bar_edit:
+    path:     /Bar/{id}/edit
+    defaults: { _controller: AperoEventBundle:Bar:edit, id: 1 }
+    requirements:
+        id: \d+
+
+apero_bar_delete:
+    path:     /Bar/{id}/delete
+    defaults: { _controller: AperoEventBundle:Bar:delete, id: 1 }
+    requirements:
+        id: \d+

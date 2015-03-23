@@ -1,0 +1,29 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+	Mes Bars - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+  <h3>Liste des Bars</h3>
+
+	<ul>
+    	{% for bar in listBars %}
+    	<li>
+        	<a href="{{ path('apero_bar_view', {'id': bar.id}) }}">
+        		{{ bar.nom }}
+        	</a>
+        	<span> - <a href="{{ path('apero_bar_edit', {'id': bar.id}) }}">Modifier</a></span>
+            <span> - <a href="{{ path('apero_bar_delete', {'id': bar.id}) }}">Supprimer</a></span>
+    	</li>
+    	{% else %}
+      		<li>Pas (encore !) de Bars</li>
+    	{% endfor %}
+	</ul>
+
+	<div>
+    	<a href="{{ path('apero_bar_add') }}">Ajouter un bar</a>
+	</div>
+
+{% endblock %}

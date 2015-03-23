@@ -1,0 +1,4 @@
+apero_event:
+    resource: "@AperoEventBundle/Resources/config/routing.yml"
+    prefix:   /
+
