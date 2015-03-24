@@ -1,5 +1,5 @@
 apero_event_homepage:
-    path:     /Event/{name}
+    path:     /Event/list
     defaults: { _controller: AperoEventBundle:Event:index }
 
 apero_bar_homepage:

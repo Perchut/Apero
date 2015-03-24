@@ -1,0 +1,19 @@
+{% extends "AperoUserBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un Bar - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  <h3>Changement de role pour {{ user.username }}</h3>
+
+  <div>
+    {{ form(form) }}
+  </div>
+
+  <div>
+    <a href="{{ path('apero_user_role_homepage') }}">Retour à la liste</a>
+  </div>
+
+{% endblock %}

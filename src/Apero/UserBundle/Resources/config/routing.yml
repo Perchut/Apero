@@ -1,0 +1,7 @@
+apero_user_role_homepage:
+    path:     /Users/Roles
+    defaults: { _controller: AperoUserBundle:UserRole:index }
+
+apero_user_role_change_role:
+    path:    /{username}/Roles/change
+    defaults: { _controller: AperoUserBundle:UserRole:change }
