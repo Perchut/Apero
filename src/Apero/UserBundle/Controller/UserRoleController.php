@@ -9,6 +9,11 @@ class UserRoleController extends Controller
 {
     public function indexAction()
     {
+    	if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_admin'));
+        }
+
     	$user_manager = $this->get('fos_user.user_manager');
     	$users = $user_manager->findUsers();
 
@@ -17,6 +22,11 @@ class UserRoleController extends Controller
 
     public function changeAction($username, Request $request)
     {
+    	if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_admin'));
+        }
+        
     	$user_manager = $this->get('fos_user.user_manager');
     	$user = $user_manager->findUserByUsername($username);
 
@@ -54,5 +64,15 @@ class UserRoleController extends Controller
 	      'form' => $form->createView(),
 	      'user' => $user,
 	    ));
+    }
+
+    public function nonValidateAction()
+    {
+    	return $this->render('AperoUserBundle:UserRole:nonValidate.html.twig');
+    }
+
+    public function nonAdminAction()
+    {
+    	return $this->render('AperoUserBundle:UserRole:nonAdmin.html.twig');
     }
 }

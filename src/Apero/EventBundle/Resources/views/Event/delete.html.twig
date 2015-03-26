@@ -1,0 +1,23 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un Evènement - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+	<h3>Bar - {{ event.name }}</h3>
+
+	<p>
+    	Etes-vous certain de vouloir supprimer l'évènement' "{{ event.name }}" ?
+	</p>
+
+	<form action="{{ path('apero_event_delete', {'id': event.id}) }}" method="post">
+		<a href="{{ path('apero_event_view', {'id': event.id}) }}">
+			Retour à l'annonce
+		</a>
+		<input type="submit" value="Supprimer"" />
+		{{ form_rest(form) }}
+	</form>
+	
+{% endblock %}

@@ -2,6 +2,40 @@ apero_event_homepage:
     path:     /Event/list
     defaults: { _controller: AperoEventBundle:Event:index }
 
+apero_event_add:
+    path:     /Event/add
+    defaults: { _controller: AperoEventBundle:Event:add }
+
+apero_event_view:
+    path:     /Event/{id}
+    defaults: { _controller: AperoEventBundle:Event:view, id: 1 }
+    requirements:
+        id: \d+
+
+apero_event_edit:
+    path:     /Event/{id}/edit
+    defaults: { _controller: AperoEventBundle:Event:edit, id: 1 }
+    requirements:
+        id: \d+
+
+apero_event_delete:
+    path:     /Event/{id}/delete
+    defaults: { _controller: AperoEventBundle:Event:delete, id: 1 }
+    requirements:
+        id: \d+
+
+apero_event_join:
+    path:    /Event/{id}/join
+    defaults: { _controller: AperoEventBundle:Event:join, id: 1 }
+    requirements:
+        id: \d+
+
+apero_event_leave:
+    path:    /Event/{id}/leave
+    defaults: { _controller: AperoEventBundle:Event:leave, id: 1 }
+    requirements:
+        id: \d+
+
 apero_bar_homepage:
     path:     /Bar/list
     defaults: { _controller: AperoEventBundle:Bar:index }

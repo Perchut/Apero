@@ -1,19 +1,19 @@
 {% extends "AperoEventBundle::layout.html.twig" %}
 
 {% block title %}
-  Modifier un Bar - {{ parent() }}
+  Modifier un Evènement - {{ parent() }}
 {% endblock %}
 
 {% block AperoEvent_body %}
 
-	<h3>Modification du Bar {{ bar.nom }}</h3>
+	<h3>Modification de l'Evènement {{ event.name }}</h3>
 
 	<div>
     	{{ form(form) }}
 	</div>
 
 	<div>
-		<a href="{{ path('apero_bar_homepage') }}">Retour à la liste</a>
+		<a href="{{ path('apero_event_homepage') }}">Retour à la liste</a>
 	</div>
 
 {% endblock %}

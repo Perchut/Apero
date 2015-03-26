@@ -1,0 +1,47 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Détails d'un Evènement - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+	    <div class="flash-notice">
+	        {{ flashMessage }}
+	    </div>
+	{% endfor %}
+
+	<h3>Evènement - {{ event.name }}</h3>
+
+	<div>
+    	Bar: <a href="{{ path('apero_bar_view', {'id': event.bar.id}) }}">{{ event.bar.nom }}</a><br />
+    	Date: {{ event.date|date('d-m-Y H:i:s') }}<br />
+    	Participant:
+    	<ul>
+    		{% for user in event.participants %}
+    			<li>{{ user.username }}</li>
+    		{% else %}
+    			<li>Aucun Participants</li>
+    		{% endfor %}
+    	</ul>
+    	Créé par: {{ event.createdBy }}<br />
+	</div>
+
+  <div>
+    {% if isParticipant %}
+      <a href="{{ path('apero_event_leave', {'id': event.id}) }}">Quitter l'évènement</a>
+    {% else %}
+      <a href="{{ path('apero_event_join', {'id': event.id}) }}">Rejoindre l'évènement</a>
+    {% endif %}
+  </div>
+
+	<div>
+  		<a href="{{ path('apero_event_homepage') }}">Retour à la liste</a>
+      {% if app.user == event.createdBy %}
+  		  <a href="{{ path('apero_event_edit', {'id': event.id}) }}">Modifier</a>
+      	<a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a>
+      {% endif %}
+	</div>
+	
+{% endblock %}

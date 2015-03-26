@@ -1,18 +1,16 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-  Utilisateur - {{ parent() }}
+	Utilisateur - {{ parent() }}
 {% endblock %}
 
 {% block body %}
 
-  {% for key, message in app.session.flashbag.all() %}
-    <div class="alert alert-{{ key }}">
-      {{ message|trans({}, 'FOSUserBundle') }}
-    </div>
-  {% endfor %}
+	{% block fos_user_content %}
+	{% endblock fos_user_content %}
 
-  {% block fos_user_content %}
-  {% endblock fos_user_content %}
+	<div>
+		<a href="{{ path('apero_event_homepage') }}">Accéder à la liste</a>
+	</div>
 
 {% endblock %}

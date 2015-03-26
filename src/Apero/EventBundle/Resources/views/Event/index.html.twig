@@ -1,1 +1,33 @@
-Hello {{ name }}!
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+	Tous les Evènements - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+  <h3>Liste des Evènements</h3>
+
+	<ul>
+    	{% for event in listEvents %}
+    	<li>
+        	<a href="{{ path('apero_event_view', {'id': event.id}) }}">
+        		{{ event.name }}
+        	</a>
+            {% if (app.user == event.createdBy or is_granted('ROLE_ADMIN')) %}
+                <span> - <a href="{{ path('apero_event_edit', {'id': event.id}) }}">Modifier</a></span>
+                <span> - <a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a></span>
+            {% endif %}
+    	</li>
+    	{% else %}
+      		<li>Pas (encore !) d'évènements'</li>
+    	{% endfor %}
+	</ul>
+
+	<div>
+        {% if is_granted('ROLE_VALIDATE') %}
+            <a href="{{ path('apero_event_add') }}">Ajouter un évènement</a>
+        {% endif %}
+	</div>
+
+{% endblock %}

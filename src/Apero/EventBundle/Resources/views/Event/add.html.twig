@@ -1,0 +1,19 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un Evènement - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+  <h3>Nouvel Evènement</h3>
+
+  <div>
+    {{ form(form) }}
+  </div>
+
+  <div>
+    <a href="{{ path('apero_event_homepage') }}">Retour à la liste</a>
+  </div>
+
+{% endblock %}

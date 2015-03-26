@@ -14,16 +14,22 @@
         	<a href="{{ path('apero_bar_view', {'id': bar.id}) }}">
         		{{ bar.nom }}
         	</a>
-        	<span> - <a href="{{ path('apero_bar_edit', {'id': bar.id}) }}">Modifier</a></span>
-            <span> - <a href="{{ path('apero_bar_delete', {'id': bar.id}) }}">Supprimer</a></span>
+            {% if is_granted('ROLE_VALIDATE') %}
+                <span> - <a href="{{ path('apero_bar_edit', {'id': bar.id}) }}">Modifier</a></span>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <span> - <a href="{{ path('apero_bar_delete', {'id': bar.id}) }}">Supprimer</a></span>
+            {% endif %}
     	</li>
     	{% else %}
       		<li>Pas (encore !) de Bars</li>
     	{% endfor %}
 	</ul>
 
-	<div>
-    	<a href="{{ path('apero_bar_add') }}">Ajouter un bar</a>
-	</div>
+    {% if is_granted('ROLE_VALIDATE') %}
+        <div>
+            <a href="{{ path('apero_bar_add') }}">Ajouter un bar</a>
+        </div>
+    {% endif %}
 
 {% endblock %}

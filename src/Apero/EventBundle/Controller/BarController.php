@@ -11,6 +11,11 @@ class BarController extends Controller
 {
     public function indexAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_VALIDATE'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_validate'));
+        }
+
     	$listBars = $this
     					->getDoctrine()
     					->getManager()
@@ -24,6 +29,11 @@ class BarController extends Controller
 
     public function addAction(Request $request)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_VALIDATE'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_validate'));
+        }
+
     	$bar = new Bar();
     	$formBuilder = $this->get('form.factory')->createBuilder(new BarType(), $bar);
     	$formBuilder->add('Créer',   'submit');
@@ -49,12 +59,17 @@ class BarController extends Controller
 
     public function viewAction($id)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_VALIDATE'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_validate'));
+        }
+
     	$em = $this->getDoctrine()->getManager();
 	    $bar = $em->getRepository('AperoEventBundle:Bar')->find($id);
 
 	    if (null === $bar)
 	    {
-	    	throw new NotFoundHttpException("Le bar d'id ".$id." n'existe pas.");
+            throw $this->createNotFoundException("Le bar d'id ".$id." n'existe pas.");
 	    }
 
 	    return $this->render('AperoEventBundle:Bar:view.html.twig', array(
@@ -64,12 +79,17 @@ class BarController extends Controller
 
     public function editAction($id, Request $request)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_VALIDATE'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_validate'));
+        }
+
     	$em = $this->getDoctrine()->getManager();
 	    $bar = $em->getRepository('AperoEventBundle:Bar')->find($id);
 
 	    if (null === $bar)
 	    {
-	    	throw new NotFoundHttpException("Le bar d'id ".$id." n'existe pas.");
+	    	throw $this->createNotFoundException("Le bar d'id ".$id." n'existe pas.");
 	    }
 
 	    $formBuilder = $this->get('form.factory')->createBuilder(new BarType(), $bar);
@@ -95,12 +115,17 @@ class BarController extends Controller
 
     public function deleteAction($id, Request $request)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            return $this->redirect($this->generateUrl('apero_user_role_non_admin'));
+        }
+
     	$em = $this->getDoctrine()->getManager();
 	    $bar = $em->getRepository('AperoEventBundle:Bar')->find($id);
 
 	    if (null === $bar)
 	    {
-	    	throw new NotFoundHttpException("Le bar d'id ".$id." n'existe pas.");
+	    	throw $this->createNotFoundException("Le bar d'id ".$id." n'existe pas.");
 	    }
 
 	    $form = $this->createFormBuilder()->getForm();
@@ -117,7 +142,7 @@ class BarController extends Controller
 
 	    return $this->render('AperoEventBundle:Bar:delete.html.twig', array(
 	      'bar' => $bar,
-	      'form'   => $form->createView()
+	      'form' => $form->createView()
 	    ));
     }
 }

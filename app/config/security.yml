@@ -15,16 +15,26 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        main_login:
+            pattern:        ^/login$
+            anonymous:      true
+
+        main_register:
+            pattern:        ^/register
+            anonymous:      true
+
         main:
             pattern:        ^/
-            anonymous:      true
+            anonymous:      false
             provider:       main
             form_login:
-                login_path: login
-                check_path: login_check
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                always_use_default_target_path : true
+                default_target_path: /Event/list
             logout:
-                path:       logout
-                target:     /Event
+                path:       fos_user_security_logout
+                target:     /login
             remember_me:
                 key:        %secret%
 
