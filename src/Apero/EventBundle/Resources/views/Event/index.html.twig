@@ -6,10 +6,10 @@
 
 {% block AperoEvent_body %}
 
-  <h3>Liste des Evènements</h3>
+    <h3>Mes prochains évènements</h3>
 
 	<ul>
-    	{% for event in listEvents %}
+    	{% for event in listEventsparticipant %}
     	<li>
         	<a href="{{ path('apero_event_view', {'id': event.id}) }}">
         		{{ event.name }}
@@ -20,9 +20,27 @@
             {% endif %}
     	</li>
     	{% else %}
-      		<li>Pas (encore !) d'évènements'</li>
+      		<li>Aucun évènement à venir.</li>
     	{% endfor %}
 	</ul>
+
+    <h3>Mes invitations en attente</h3>
+
+    <ul>
+        {% for event in listEventsinvite %}
+        <li>
+            <a href="{{ path('apero_event_view', {'id': event.id}) }}">
+                {{ event.name }}
+            </a>
+            {% if (app.user == event.createdBy or is_granted('ROLE_ADMIN')) %}
+                <span> - <a href="{{ path('apero_event_edit', {'id': event.id}) }}">Modifier</a></span>
+                <span> - <a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a></span>
+            {% endif %}
+        </li>
+        {% else %}
+            <li>Aucune invitation en attente</li>
+        {% endfor %}
+    </ul>
 
 	<div>
         {% if is_granted('ROLE_VALIDATE') %}

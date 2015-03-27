@@ -12,4 +12,51 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRepository extends EntityRepository
 {
+	public function getEventsWhereInvited($user)
+	{
+		$date = new \Datetime();
+		$qb = $this
+			->createQueryBuilder('e')
+			->leftJoin('e.eventUsers', 'eu')
+			->addSelect('eu')
+		;
+
+		$qb->where('eu.user = :user')
+				->setParameter('user', $user)
+			->andWhere('e.date > :date')
+				->setParameter('date', $date)
+			->andWhere('eu.invite = :invite')
+				->setParameter('invite', true)
+			->andWhere('eu.participant = :participant')
+				->setParameter('participant', false)
+		;
+
+		return $qb
+			->getQuery()
+			->getResult()
+		;
+	}
+
+	public function getEventsWhereParticipant($user)
+	{
+		$date = new \Datetime();
+		$qb = $this
+			->createQueryBuilder('e')
+			->leftJoin('e.eventUsers', 'eu')
+			->addSelect('eu')
+		;
+
+		$qb->where('eu.user = :user')
+				->setParameter('user', $user)
+			->andWhere('e.date > :date')
+				->setParameter('date', $date)
+			->andWhere('eu.participant = :participant')
+				->setParameter('participant', true)
+		;
+
+		return $qb
+			->getQuery()
+			->getResult()
+		;
+	}
 }

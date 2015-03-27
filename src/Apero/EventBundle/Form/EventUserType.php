@@ -2,15 +2,12 @@
 
 namespace Apero\EventBundle\Form;
 
+use Apero\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
-use Apero\EventBundle\Entity\Event;
-use Apero\EventBundle\Entity\Bar;
-use Apero\EventBundle\Entity\EventUser;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EventType extends AbstractType
+class EventUserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,14 +16,7 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                'label' => 'Nom',
-            ))
-            ->add('date', 'datetime')
-            ->add('bar',  'entity', array(
-                'class' => 'AperoEventBundle:Bar',
-                'property' => 'nom',
-        ));
+            ->add('event', new EventType());
     }
     
     /**
@@ -35,7 +25,7 @@ class EventType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Apero\EventBundle\Entity\Event'
+            'data_class' => 'Apero\EventBundle\Entity\EventUser'
         ));
     }
 
@@ -44,6 +34,6 @@ class EventType extends AbstractType
      */
     public function getName()
     {
-        return 'apero_eventbundle_event';
+        return 'apero_eventbundle_eventuser';
     }
 }

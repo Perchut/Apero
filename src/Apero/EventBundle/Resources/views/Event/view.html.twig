@@ -17,15 +17,27 @@
 	<div>
     	Bar: <a href="{{ path('apero_bar_view', {'id': event.bar.id}) }}">{{ event.bar.nom }}</a><br />
     	Date: {{ event.date|date('d-m-Y H:i:s') }}<br />
-    	Participant:
-    	<ul>
-    		{% for user in event.participants %}
-    			<li>{{ user.username }}</li>
-    		{% else %}
-    			<li>Aucun Participants</li>
-    		{% endfor %}
-    	</ul>
-    	Créé par: {{ event.createdBy }}<br />
+      Participants:
+      <ul>
+        {% for eventUser in event.eventUsers %}
+          {% if eventUser.participant == true %}
+            <li>{{ eventUser.user.username }}</li>
+          {% endif %}
+        {% else %}
+          <li>Aucun Participants</li>
+        {% endfor %}
+      </ul>
+      Invités:
+      <ul>
+        {% for eventUser in event.eventUsers %}
+          {% if eventUser.invite == true %}
+            <li>{{ eventUser.user.username }}</li>
+          {% endif %}
+        {% else %}
+          <li>Aucun Invités</li>
+        {% endfor %}
+      </ul>
+    	Créé par: {{ event.createdBy.username }}<br />
 	</div>
 
   <div>

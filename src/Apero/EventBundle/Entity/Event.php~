@@ -44,14 +44,14 @@ class Event
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Apero\UserBundle\Entity\User")
-     */
-    private $participants;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Apero\UserBundle\Entity\User")
      */
     private $createdBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Apero\EventBundle\Entity\EventUser", mappedBy="event")
+     */
+    private $eventUsers;
 
     /**
      * Get id
@@ -108,46 +108,6 @@ class Event
     {
         return $this->date;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add users
-     *
-     * @param \Apero\UserBundle\Entity\User $users
-     * @return Event
-     */
-    public function addUser(\Apero\UserBundle\Entity\User $users)
-    {
-        $this->users[] = $users;
-    
-        return $this;
-    }
-
-    /**
-     * Remove users
-     *
-     * @param \Apero\UserBundle\Entity\User $users
-     */
-    public function removeUser(\Apero\UserBundle\Entity\User $users)
-    {
-        $this->users->removeElement($users);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
 
     /**
      * Set name
@@ -172,38 +132,6 @@ class Event
         return $this->name;
     }
 
-    /**
-     * Add participants
-     *
-     * @param \Apero\UserBundle\Entity\User $participants
-     * @return Event
-     */
-    public function addParticipant(\Apero\UserBundle\Entity\User $participants)
-    {
-        $this->participants[] = $participants;
-    
-        return $this;
-    }
-
-    /**
-     * Remove participants
-     *
-     * @param \Apero\UserBundle\Entity\User $participants
-     */
-    public function removeParticipant(\Apero\UserBundle\Entity\User $participants)
-    {
-        $this->participants->removeElement($participants);
-    }
-
-    /**
-     * Get participants
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getParticipants()
-    {
-        return $this->participants;
-    }
 
     /**
      * Set createdBy
@@ -227,4 +155,5 @@ class Event
     {
         return $this->createdBy;
     }
+    
 }
