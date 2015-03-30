@@ -43,8 +43,10 @@
   <div>
     {% if isParticipant %}
       <a href="{{ path('apero_event_leave', {'id': event.id}) }}">Quitter l'évènement</a>
-    {% else %}
+    {% elseif isInvite %}
       <a href="{{ path('apero_event_join', {'id': event.id}) }}">Rejoindre l'évènement</a>
+    {% else %}
+      <span>Vous n'êtes pas invité à cet évènement.</span>
     {% endif %}
   </div>
 

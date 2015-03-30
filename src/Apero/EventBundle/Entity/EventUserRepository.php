@@ -12,4 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventUserRepository extends EntityRepository
 {
+	public function findbyEventandUser($eventID, $userID)
+	{
+		$qb = $this
+			->createQueryBuilder('eu')
+		;
+
+		$qb->where('eu.user = :user')
+				->setParameter('user', $userID)
+			->andWhere('eu.event = :event')
+				->setParameter('event', $eventID)
+		;
+
+		return $qb
+			->getQuery()
+			->getResult()
+		;
+	}
 }
