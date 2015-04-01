@@ -15,8 +15,8 @@
         		{{ event.name }}
         	</a>
             {% if (app.user == event.createdBy or is_granted('ROLE_ADMIN')) %}
-                <span> - <a href="{{ path('apero_event_edit', {'id': event.id}) }}">Modifier</a></span>
-                <span> - <a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a></span>
+                <span> - </span><a href="{{ path('apero_event_edit', {'id': event.id}) }}"><img src="{{ asset('bundles/aperoevent/images/EditBlock.png') }}" alt="Modifier" /></a>
+                <span> - </span><a href="{{ path('apero_event_delete', {'id': event.id}) }}" class='suppr'><img src="{{ asset('bundles/aperoevent/images/DeleteBlock.png') }}" alt="Supprimer" /></a>
             {% endif %}
     	</li>
     	{% else %}
@@ -26,25 +26,26 @@
 
     <h3>Mes invitations en attente</h3>
 
-    <ul>
-        {% for event in listEventsinvite %}
-        <li>
-            <a href="{{ path('apero_event_view', {'id': event.id}) }}">
-                {{ event.name }}
-            </a>
-            {% if (app.user == event.createdBy or is_granted('ROLE_ADMIN')) %}
-                <span> - <a href="{{ path('apero_event_edit', {'id': event.id}) }}">Modifier</a></span>
-                <span> - <a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a></span>
-            {% endif %}
-        </li>
-        {% else %}
-            <li>Aucune invitation en attente</li>
-        {% endfor %}
-    </ul>
-
+    <div class='liste'>
+        <ul>
+            {% for event in listEventsinvite %}
+            <li>
+                <a href="{{ path('apero_event_view', {'id': event.id}) }}">
+                    {{ event.name }}
+                </a>
+                {% if (app.user == event.createdBy or is_granted('ROLE_ADMIN')) %}
+                    <span> - </span><a href="{{ path('apero_event_edit', {'id': event.id}) }}"><img src="{{ asset('bundles/aperoevent/images/EditBlock.png') }}" alt="Modifier" /></a>
+                    <span> <a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a></span>
+                {% endif %}
+            </li>
+            {% else %}
+                <li>Aucune invitation en attente</li>
+            {% endfor %}
+        </ul>
+    </div>
 	<div>
         {% if is_granted('ROLE_VALIDATE') %}
-            <a href="{{ path('apero_event_add') }}">Ajouter un évènement</a>
+            <a href="{{ path('apero_event_add') }}"><img src="{{ asset('bundles/aperoevent/images/AddBlock.png') }}" alt="Ajouter un évènement"  class='add'/></a></a>
         {% endif %}
 	</div>
 

@@ -1,14 +1,20 @@
 {% extends "::layout.html.twig" %}
 
+{% block stylesheets %}
+    {% stylesheets '@AperoEventBundle/Resources/public/css/*.css' %}
+    	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block title %}
   Mes Apéros - {{ parent() }}
 {% endblock %}
 
+{% block main_title %}{{ parent() }} - Mes Apéros{% endblock %}
+
 {% block body %}
 
-  <h2>Mes Apéros</h2>
-
-  {% block AperoEvent_body %}
-  {% endblock %}
+  	{% block AperoEvent_body %}
+  	{% endblock %}
 
 {% endblock %}
