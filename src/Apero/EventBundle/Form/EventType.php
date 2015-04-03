@@ -20,13 +20,19 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                'label' => 'Nom',
+                'label' => 'Nom: ',
             ))
-            ->add('date', 'datetime')
+            ->add('date', 'datetime', array(
+                'label' => 'Date :',
+                'date_widget' => "single_text",
+                'time_widget' => "single_text",
+            ))
             ->add('bar',  'entity', array(
                 'class' => 'AperoEventBundle:Bar',
                 'property' => 'nom',
-        ));
+                'label' => 'Bar: '
+            ))
+        ;
     }
     
     /**

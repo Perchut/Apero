@@ -14,48 +14,66 @@
 
 	<h3>Evènement - {{ event.name }}</h3>
 
-	<div>
-    	Bar: <a href="{{ path('apero_bar_view', {'id': event.bar.id}) }}">{{ event.bar.nom }}</a><br />
-    	Date: {{ event.date|date('d-m-Y H:i:s') }}<br />
-      Participants:
-      <ul>
-        {% for eventUser in event.eventUsers %}
-          {% if eventUser.participant == true %}
-            <li>{{ eventUser.user.username }}</li>
-          {% endif %}
-        {% else %}
-          <li>Aucun Participants</li>
-        {% endfor %}
-      </ul>
-      Invités:
-      <ul>
-        {% for eventUser in event.eventUsers %}
-          {% if eventUser.invite == true %}
-            <li>{{ eventUser.user.username }}</li>
-          {% endif %}
-        {% else %}
-          <li>Aucun Invités</li>
-        {% endfor %}
-      </ul>
-    	Créé par: {{ event.createdBy.username }}<br />
-	</div>
+  <div class='Ev'>
+  	<div class='detailE'>
+      <div class='elementsE'>
+      	Bar: <a href="{{ path('apero_bar_view', {'id': event.bar.id}) }}">{{ event.bar.nom }}</a><br />
+      	Date: {{ event.date|date('d/m/Y H:i') }}<br />
+        Créé par: {{ event.createdBy.username }}<br />
+      </div>
 
-  <div>
-    {% if isParticipant %}
-      <a href="{{ path('apero_event_leave', {'id': event.id}) }}">Quitter l'évènement</a>
-    {% elseif isInvite %}
-      <a href="{{ path('apero_event_join', {'id': event.id}) }}">Rejoindre l'évènement</a>
-    {% else %}
-      <span>Vous n'êtes pas invité à cet évènement.</span>
-    {% endif %}
+      
+
+      <div class='UserE'>
+
+        <div class='InE'>
+          Invités:
+          <ul>
+            {% for eventUser in event.eventUsers %}
+              {% if eventUser.invite == true %}
+                <li>{{ eventUser.user.username }}</li>
+              {% endif %}
+            {% else %}
+              <li>Aucun Invités</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class='PaE'>
+          Participants:
+          <ul>
+            {% for eventUser in event.eventUsers %}
+              {% if eventUser.participant == true %}
+                <li>{{ eventUser.user.username }}</li>
+              {% endif %}
+            {% else %}
+              <li>Aucun Participants</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+
+      <div class='joinE'>
+        {% if isParticipant %}
+          <a href="{{ path('apero_event_leave', {'id': event.id}) }}"><button>Quitter l'évènement</button></a>
+        {% elseif isInvite %}
+          <a href="{{ path('apero_event_join', {'id': event.id}) }}"><button>Rejoindre l'évènement</button></a>
+        {% else %}
+          <span>Vous n'êtes pas invité à cet évènement.</span>
+        {% endif %}
+      </div>
+      
+  	</div>
+    
+  	<div class='choicesE'>
+    		<a href="{{ path('apero_event_homepage') }}"><button>Retour à la liste</button></a>
+        {% if app.user == event.createdBy %}
+    		  <a href="{{ path('apero_event_edit', {'id': event.id}) }}"><button>Modifier</button></a>
+        	<a href="{{ path('apero_event_delete', {'id': event.id}) }}"><button>Supprimer</button></a>
+        {% endif %}
+  	</div>
+
   </div>
-
-	<div>
-  		<a href="{{ path('apero_event_homepage') }}">Retour à la liste</a>
-      {% if app.user == event.createdBy %}
-  		  <a href="{{ path('apero_event_edit', {'id': event.id}) }}">Modifier</a>
-      	<a href="{{ path('apero_event_delete', {'id': event.id}) }}">Supprimer</a>
-      {% endif %}
-	</div>
 	
 {% endblock %}

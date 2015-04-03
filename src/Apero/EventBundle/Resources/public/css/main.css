@@ -11,6 +11,7 @@ body
 	margin: 0px;
 }
 
+/* Index Events */
 div.bandeau
 {
 	background-color: white;
@@ -24,49 +25,213 @@ h1
 	padding-bottom: 1%;
 }
 
+div.listes
+{
+	display: block;
+	width: 100%;
+	float: left;
+}
+
+div.nextE
+{
+	display: inline-block;
+	width: 49%;
+	float: left;
+	border-right: 1px solid black;
+}
+
+div.nextI
+{
+	display: inline-block;
+	width: 50%;
+	text-align: center;
+}
+
+div.newE
+{
+	float: none;
+}
+
 h3
 {
 	background-color: white;
-	width: 17%;
+	width: 60%;
 	text-align: center;
-	margin-left: 2%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0%;
 	-moz-border-radius:10px;
 	-webkit-border-radius:10px;
 	border-radius:10px;
 }
 
-div.list
-{
-	border-bottom: 1px solid black;
-}
-
-li
+li.indexE
 {
 	list-style-type: none;
-	margin-left: 2%;
+	margin-left: 35%;
+	margin-right: auto;
+	width: 25%;
 }
 
-li a
+li.indexE a
 {
 	text-decoration: none;
 	color: black;
 }
 
-li a img
+li.indexE a img
 {
-	width: 1%;
-}
-
-li a.suppr
-{
-	color: red;
-	font-size: 150%;
-	font-weight: bold;
-	width: 1%;
+	width: 8%;
 }
 
 img.add
 {
 	width: 2%;
 	margin-left: 1%;
+}
+
+/* View Event */
+div.Ev
+{
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.detailE
+{
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.elementsE
+{
+	background-color: rgba(216, 216, 216, 0.67);
+	margin-top: 0.5%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 3%;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+div.UserE
+{
+	width: 100%;
+	overflow: auto;
+}
+
+div.PaE
+{
+	float: left;
+	margin-top: 1%;
+	margin-left: 0.5%;
+	padding: 3%;
+	padding-bottom: 0.5%;
+	width: 43.5%;
+	background-color: rgba(216, 216, 216, 0.67);
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+div.InE
+{
+    float: left;
+	margin-top: 1%;
+	margin-right: 0.5%;
+	padding: 3%;
+	padding-bottom: 0.5%;
+	width: 43.5%;
+	background-color: rgba(216, 216, 216, 0.67);
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+div.joinE
+{
+	margin-top: 1%;
+}
+
+div.choicesE
+{
+	margin-top: 3%;
+}
+
+/* Add/Edit Event */
+div.formE
+{
+	margin-top: 0.5%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2%;
+	width: 15%;
+	background-color: rgba(216, 216, 216, 0.67);
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+/* index Bar */
+div.barList
+{
+	background-color: rgba(216, 216, 216, 0.67);
+	width: 55%;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding: 1%;
+	margin-top: 0.5%;
+}
+
+div.barList ul
+{
+	padding: 0%;
+	margin: 0%;
+}
+
+div.barList li
+{
+	list-style-type: none;
+}
+
+div.barList li a
+{
+	text-decoration: none;
+	color: black;
+}
+
+div.barList li a img
+{
+	width: 2%;
+}
+
+/* view Bar */
+div.viewB
+{
+	background-color: rgba(216, 216, 216, 0.67);
+	width: 55%;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding: 1%;
+	margin-top: 0.5%;
+}
+
+div.actionB
+{
+	width: 55%;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	margin-top: 0.5%;
 }

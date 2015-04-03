@@ -8,16 +8,19 @@
 
 	<h3>Bar - {{ event.name }}</h3>
 
+<div class='Ev'>
 	<p>
     	Etes-vous certain de vouloir supprimer l'évènement' "{{ event.name }}" ?
 	</p>
 
 	<form action="{{ path('apero_event_delete', {'id': event.id}) }}" method="post">
-		<a href="{{ path('apero_event_view', {'id': event.id}) }}">
-			Retour à l'annonce
-		</a>
-		<input type="submit" value="Supprimer"" />
+		<input type="submit" value="Supprimer" />
 		{{ form_rest(form) }}
 	</form>
+	<a href="{{ path('apero_event_view', {'id': event.id}) }}">
+		<button>Retour à l'annonce</button>
+	</a>
+
+</div>
 	
 {% endblock %}

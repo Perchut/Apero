@@ -36,7 +36,7 @@ class BarController extends Controller
 
     	$bar = new Bar();
     	$formBuilder = $this->get('form.factory')->createBuilder(new BarType(), $bar);
-    	$formBuilder->add('Créer',   'submit');
+    	$formBuilder->add('Creer',   'submit');
 
     	$form = $formBuilder->getForm();
 

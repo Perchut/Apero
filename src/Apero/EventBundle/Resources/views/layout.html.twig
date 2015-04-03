@@ -1,7 +1,10 @@
 {% extends "::layout.html.twig" %}
 
 {% block stylesheets %}
-    {% stylesheets '@AperoEventBundle/Resources/public/css/*.css' %}
+    {% stylesheets '@AperoEventBundle/Resources/public/css/main.css' %}
+    	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+    {% stylesheets '@AperoEventBundle/Resources/public/css/mobile.css' %}
     	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
 {% endblock %}

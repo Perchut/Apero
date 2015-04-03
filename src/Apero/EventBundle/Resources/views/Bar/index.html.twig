@@ -5,31 +5,37 @@
 {% endblock %}
 
 {% block AperoEvent_body %}
-
+    
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    
   <h3>Liste des Bars</h3>
 
-	<ul>
-    	{% for bar in listBars %}
-    	<li>
-        	<a href="{{ path('apero_bar_view', {'id': bar.id}) }}">
-        		{{ bar.nom }}
-        	</a>
-            {% if is_granted('ROLE_VALIDATE') %}
-                <span> - <a href="{{ path('apero_bar_edit', {'id': bar.id}) }}">Modifier</a></span>
-            {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <span> - <a href="{{ path('apero_bar_delete', {'id': bar.id}) }}">Supprimer</a></span>
-            {% endif %}
-    	</li>
-    	{% else %}
-      		<li>Pas (encore !) de Bars</li>
-    	{% endfor %}
-	</ul>
+  <div class='barList'>
+        <ul>
+        	{% for bar in listBars %}
+            <a href="{{ path('apero_bar_view', {'id': bar.id}) }}">
+               <li onclick="location.href='{{ path('apero_bar_view', {'id': bar.id}) }}'">
+                    {{ bar.nom }}                    
+                    {% if (is_granted('ROLE_ADMIN')) %}
+                        <span> - </span><a href="{{ path('apero_bar_edit', {'id': bar.id}) }}"><img src="{{ asset('bundles/aperoevent/images/EditBlock.png') }}" alt="Modifier" /></a>
+                        <span> - </span><a href="{{ path('apero_bar_delete', {'id': bar.id}) }}"><img src="{{ asset('bundles/aperoevent/images/DeleteBlock.png') }}" alt="Supprimer" /></a>
+                    {% endif %}
+                </li>
+            </a>
+            {% else %}
+                <li>Aucun bars dans la liste.</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    {% if is_granted('ROLE_VALIDATE') %}
-        <div>
-            <a href="{{ path('apero_bar_add') }}">Ajouter un bar</a>
-        </div>
-    {% endif %}
+    <div class='newE'>
+        {% if is_granted('ROLE_VALIDATE') %}
+            <a href="{{ path('apero_bar_add') }}"><img src="{{ asset('bundles/aperoevent/images/AddBlock.png') }}" alt="Ajouter un bar"  class='add'/></a>
+        {% endif %}
+    </div>
 
 {% endblock %}

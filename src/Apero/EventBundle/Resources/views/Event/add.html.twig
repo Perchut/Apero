@@ -4,16 +4,49 @@
   Ajouter un Evènement - {{ parent() }}
 {% endblock %}
 
+{% block javascripts %}
+	{% javascripts '@AperoEventBundle/Resources/public/js/*.js' %}
+	  <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
 {% block AperoEvent_body %}
+
+<script type="text/javascript">
+	$(function(){
+	    $("#form_date input").each(function(){
+	        $(this).attr("readonly","readonly");
+	    });
+	    $('#form_date_date').datetimepicker({
+	        format: "d/m/Y",
+	        timepicker: false,
+	        datepicker: true,
+	    });
+	    $('#form_date_time').datetimepicker({
+	        format: "H:i",
+	        timepicker: true,
+	        datepicker: false,
+	        step:5
+	    });
+	});
+</script>
 
   <h3>Nouvel Evènement</h3>
 
-  <div>
-    {{ form(form) }}
+  <div class='formE'>
+  	{{ form_start(form) }}
+    {{ form_row(form.name) }}<br />
+    {{ form_row(form.date) }}<br />
+    {{ form_row(form.bar) }}<br />
+    {{ form_row(form.invites) }}<br />
+    {{ form_row(form.Créer) }}<br />
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    <a href="{{ path('apero_event_homepage') }}"><button>Retour à la liste</button></a>
   </div>
 
   <div>
-    <a href="{{ path('apero_event_homepage') }}">Retour à la liste</a>
+    
   </div>
 
 {% endblock %}

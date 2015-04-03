@@ -1,5 +1,6 @@
 @media (max-width: 640px)
 {
+	/* indexE */
 	h1
 	{
 		font-size: 150%;
@@ -16,7 +17,43 @@
 		border-radius:10px;
 	}
 
-	li a img
+	ul
+	{
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 0%;
+		padding-right: 0%;
+	}
+
+	li
+	{
+		border: 1px solid black;
+		width: 80%;
+		background-color: orange;
+		color: white;
+		text-align: center;
+		list-style-type: none;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 0%;
+		padding-right: 0%;
+	}
+
+	li.indexE
+	{
+		width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 0%;
+		padding-right: 0%;
+	}
+
+	li.indexE a
+	{
+		color: white;
+	}
+
+	li.indexE a img
 	{
 		width: 5%;
 		background-color: white;
@@ -34,4 +71,67 @@
 		width: 8%;
 	}
 
+	div.listes
+	{
+		display: block;
+		width: 100%;
+	}
+
+	div.nextE
+	{
+		display: inline-block;
+		width: 100%;
+		border-right: none;
+	}
+
+	div.nextI
+	{
+		display: inline-block;
+		width: 100%;
+	}
+
+	/* View Event */
+	div.Ev
+	{
+		width: 95%;
+	}
+
+	/* Add/Edit Event */
+	div.formE
+	{
+		margin-top: 0.5%;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 2%;
+		width: 90%;
+		background-color: rgba(216, 216, 216, 0.67);
+		-moz-border-radius:10px;
+		-webkit-border-radius:10px;
+		border-radius:10px;
+	}
+
+	/* index Bar */
+	div.barList
+	{
+		width: 95%;
+		padding-top: 2%;
+	}
+
+	div.barList li a img
+	{
+		width: 5%;
+		background-color: white;
+		-moz-border-radius:70px;
+		-webkit-border-radius:70px;
+		border-radius:70px;
+		padding: 1%;
+	}
+
+	/* view Bar */
+	div.viewB
+	{
+		width: 88%;
+		padding: 4%;
+
+	}
 }

@@ -40,7 +40,7 @@ class EventController extends Controller
     	$invites = $this->getListeInvites($this->getUser());
 		$formBuilder = $this->get('form.factory')->createBuilder(new EventType(), $event);
 		$formBuilder->add('invites', 'choice', array(
-			'label' => 'Invités',
+			'label' => 'Invités: ',
 			'choices' => $invites,
 			'multiple' => true,
 			'mapped' => false,
