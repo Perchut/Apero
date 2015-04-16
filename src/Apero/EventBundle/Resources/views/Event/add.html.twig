@@ -4,8 +4,15 @@
   Ajouter un Evènement - {{ parent() }}
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+    {% stylesheets '@AperoEventBundle/Resources/public/css/jquery.datetimepicker.css' output='css/compiled/datepicker.css'%}
+    	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
 {% block javascripts %}
-	{% javascripts '@AperoEventBundle/Resources/public/js/*.js' %}
+	{% javascripts '@AperoEventBundle/Resources/public/js/*.js' output='js/compiled/main.css' %}
 	  <script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 {% endblock %}

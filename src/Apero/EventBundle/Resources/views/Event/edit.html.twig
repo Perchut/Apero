@@ -6,13 +6,13 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-    {% stylesheets '@AperoEventBundle/Resources/public/css/jquery.datetimepicker.css' %}
+    {% stylesheets '@AperoEventBundle/Resources/public/css/jquery.datetimepicker.css' output='css/compiled/datepicker.css'%}
     	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
 {% endblock %}
 
 {% block javascripts %}
-	{% javascripts '@AperoEventBundle/Resources/public/js/jquery.js' %}
+	{% javascripts '@AperoEventBundle/Resources/public/js/jquery.js' output='js/compiled/main.css' %}
 	  <script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 	{% javascripts '@AperoEventBundle/Resources/public/js/jquery.datetimepicker.js' %}
