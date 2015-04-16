@@ -21,6 +21,8 @@
         "sensio/generator-bundle": "2.3.*",
         "friendsofsymfony/user-bundle": "dev-master",
         "coresphere/console-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "dev-master",
+        "jms/serializer-bundle": "dev-master",
         "incenteev/composer-parameter-handler": "~2.0"
     },
     "scripts": {
