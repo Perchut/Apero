@@ -59,5 +59,10 @@
             <a href="{{ path('apero_event_add') }}"><img src="{{ asset('bundles/aperoevent/images/AddBlock.png') }}" alt="Ajouter un évènement"  class='add'/></a></a>
         {% endif %}
 	</div>
+	<div>
+		{% if is_granted('ROLE_VALIDATE') %}
+          		<a href="{{ path('apero_bar_add') }}">Ajouter un bar</a>
+	        {% endif %}
+	 </div>
 
 {% endblock %}
