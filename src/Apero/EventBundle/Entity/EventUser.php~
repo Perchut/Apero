@@ -48,6 +48,12 @@ class EventUser
     private $user;
 
 
+    public function __construct()
+    {
+        $this->invite = false;
+        $this->participant = false;
+    }
+
     /**
      * Get id
      *

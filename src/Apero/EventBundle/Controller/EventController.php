@@ -17,7 +17,7 @@ class EventController extends Controller
     	if (!$this->get('security.context')->isGranted('ROLE_VALIDATE'))
     	{
 	    	return $this->redirect($this->generateUrl('apero_user_role_non_validate'));
-	    }
+	}
 
     	$em = $this->getdoctrine()->getManager();
     	$listEventsinvite = $em->getRepository('AperoEventBundle:Event')->getEventsWhereInvited($this->getUser());

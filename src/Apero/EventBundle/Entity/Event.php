@@ -29,10 +29,8 @@ class Event
     private $name;
 
     /**
-     * @var string
      *
-     * @ORM\ManytoOne(targetEntity="Apero\EventBundle\Entity\Bar")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Apero\EventBundle\Entity\Bar")
      */
     private $bar;
 

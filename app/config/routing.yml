@@ -1,3 +1,10 @@
+root:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /Event/list
+        permanent: true
+
 apero_user:
     resource: "@AperoUserBundle/Resources/config/routing.yml"
     prefix:   /

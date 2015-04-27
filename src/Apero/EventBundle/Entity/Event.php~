@@ -32,7 +32,6 @@ class Event
      * @var string
      *
      * @ORM\ManytoOne(targetEntity="Apero\EventBundle\Entity\Bar")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $bar;
 
@@ -156,4 +155,47 @@ class Event
         return $this->createdBy;
     }
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->eventUsers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->date = new \DateTime();
+    }
+    
+    /**
+     * Add eventUsers
+     *
+     * @param \Apero\EventBundle\Entity\EventUser $eventUsers
+     * @return Event
+     */
+    public function addEventUser(\Apero\EventBundle\Entity\EventUser $eventUsers)
+    {
+        $this->eventUsers[] = $eventUsers;
+
+        $eventUsers->setEvent($this);
+    
+        return $this;
+    }
+
+    /**
+     * Remove eventUsers
+     *
+     * @param \Apero\EventBundle\Entity\EventUser $eventUsers
+     */
+    public function removeEventUser(\Apero\EventBundle\Entity\EventUser $eventUsers)
+    {
+        $this->eventUsers->removeElement($eventUsers);
+    }
+
+    /**
+     * Get eventUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventUsers()
+    {
+        return $this->eventUsers;
+    }
 }
