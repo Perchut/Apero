@@ -48,6 +48,13 @@ class BarController extends Controller
     		$em->flush();
 
     		$request->getSession()->getFlashBag()->add('notice', 'Bar bien enregistré.');
+		$message = \Swift_Message::newInstance()
+			->setSubject("Création d'un Bar")
+			->setFrom('admin@perchut.org')
+			->setTo($this->getUser()->getEmail())
+			->setBody($this->renderView('AperoEventBundle:Bar:mail_new.html.twig', array('bar' => $bar)), 'text/html')
+		;
+		$this->get('mailer')->send($message);
 
     		return $this->redirect($this->generateUrl('apero_bar_view', array('id' => $bar->getId())));
 	    }

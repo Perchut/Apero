@@ -39,9 +39,7 @@
     </div>
 	
 	<div>
-		{% if is_granted('ROLE_VALIDATE') %}
-        	    <a href="{{ path('apero_event_homepage') }}">Retour aux évènements</a>
-	        {% endif %}
+		<a href="{{ path('apero_event_homepage') }}"><button>Accéder à vos évènements</button></a>
 	</div>
 
 {% endblock %}

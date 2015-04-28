@@ -60,9 +60,7 @@
         {% endif %}
 	</div>
 	<div>
-		{% if is_granted('ROLE_VALIDATE') %}
-          		<a href="{{ path('apero_bar_add') }}">Ajouter un bar</a>
-	        {% endif %}
-	 </div>
+		<a href="{{ path('apero_bar_homepage') }}"><button>Accéder à la liste des Bars</button></a>
+	</div>
 
 {% endblock %}

@@ -64,9 +64,11 @@ class EventController extends Controller
 
     		$um =$this->get('fos_user.user_manager');
     		$invites = $form->get('invites')->getData();
+		$invites_name = array();
     		foreach ($invites as $inviteID)
     		{
     			$invite = $um->findUserBy(array('id' => $inviteID));
+			$invites_name[] = $invite->getUsername();
     			$eventUser = new EventUser();
     			$eventUser->setEvent($event);
     			$eventUser->setUser($invite);
@@ -76,6 +78,14 @@ class EventController extends Controller
     		$em->flush();
 
     		$request->getSession()->getFlashBag()->add('notice', 'Evènement bien enregistré.');
+
+		$message = \Swift_Message::newInstance()
+                        ->setSubject("Création d'un Evènement")
+                        ->setFrom('admin@perchut.org')
+                        ->setTo($this->getUser()->getEmail())
+                        ->setBody($this->renderView('AperoEventBundle:Event:mail_new.html.twig', array('event' => $event, 'invites' => $invites_name)), 'text/html')
+                ;
+                $this->get('mailer')->send($message);
 
     		return $this->redirect($this->generateUrl('apero_event_view', array('id' => $event->getId())));
 	    }
