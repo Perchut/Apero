@@ -9,12 +9,8 @@
 	{% block fos_user_content %}
 	{% endblock fos_user_content %}
 	
-	{% if (is_granted('ROLE_ADMIN')) %}
-		<div>
-			<a href="{{ path('apero_event_homepage') }}">Accéder à la liste</a>
-		</div>
+	{% if not is_granted("ROLE_VALIDATE") %}
+		<div><a href="{{ path('fos_user_registration_register') }}">Créer un nouveau compte</a></div>
 	{% endif %}
-
-	<div><a href="{{ path('fos_user_registration_register') }}">Créer un nouveau compte</a>
 
 {% endblock %}

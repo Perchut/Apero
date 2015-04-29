@@ -17,7 +17,7 @@
 <body>
   <div class='bandeau'>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+      Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a> - <a href="{{ path('fos_user_profile_show') }}">Mon Profil</a>
     {% else %}
         <a href="{{ path('fos_user_security_login') }}">Connexion</a>
     {% endif %}
