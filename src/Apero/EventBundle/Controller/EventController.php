@@ -79,7 +79,7 @@ class EventController extends Controller
                             ->setSubject("Invitation à un Evènement")
                             ->setFrom('admin@perchut.org')
                             ->setTo($invite->getEmail())
-                            ->setBody($this->renderView('AperoEventBundle:Event:mail_invitation.html.twig', array('event' => $event)), 'text/html')
+                            ->setBody($this->renderView('AperoEventBundle:Event:mail_invitation.html.twig', array('event' => $event, 'user' => $this->getUser())), 'text/html')
                 ;
                 $this->get('mailer')->send($message);
     		}
@@ -298,6 +298,14 @@ class EventController extends Controller
 
     	$request->getSession()->getFlashBag()->add('notice', "Vous avez bien rejoint l'évènement.");
 
+        $message = \Swift_Message::newInstance()
+                    ->setSubject("Participation à un Evènement")
+                    ->setFrom('admin@perchut.org')
+                    ->setTo($event->getCreatedBy()->getEmail())
+                    ->setBody($this->renderView('AperoEventBundle:Event:mail_join.html.twig', array('event' => $event, 'user' => $this->getUser())), 'text/html')
+        ;
+        $this->get('mailer')->send($message);
+
 		return $this->redirect($this->generateUrl('apero_event_view', array('id' => $event->getId())));
     }
 
@@ -330,6 +338,14 @@ class EventController extends Controller
     	$em->flush();
 
     	$request->getSession()->getFlashBag()->add('notice', "Vous avez bien quitté l'évènement.");
+
+        $message = \Swift_Message::newInstance()
+                    ->setSubject("Départ d'un Evènement")
+                    ->setFrom('admin@perchut.org')
+                    ->setTo($event->getCreatedBy()->getEmail())
+                    ->setBody($this->renderView('AperoEventBundle:Event:mail_leave.html.twig', array('event' => $event, 'user' => $this->getUser())), 'text/html')
+        ;
+        $this->get('mailer')->send($message);
 
     	return $this->redirect($this->generateUrl('apero_event_view', array('id' => $event->getId())));
     }

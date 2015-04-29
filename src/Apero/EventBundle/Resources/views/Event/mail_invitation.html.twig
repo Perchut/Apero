@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0"/>
 	</head>
 	<body>
+		Bonjour {{ user.username }},
 		Vous avez été invité par {{ event.createdBy.username }} à l'évènement: {{ event.name }} depuis le site Apéro.<br />
 		L'évènement aura lieu le {{ event.date|date('d/m/Y H:i') }} au bar {{ event.bar.nom }}.<br /><br />
 		Vous pouvez dès à présent confirmer votre participation à l'évènement.

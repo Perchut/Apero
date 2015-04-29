@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0"/>
 	</head>
 	<body>
-		Bonjour {{ user.username }},
-		Vous avez créé le Bar: {{ bar.nom }} sur le site Apéro.<br />
-		Merci à vous !
+		Bonjour {{ event.createdBy.username }},
+		Votre invité {{ user.username }} a répondu qu'il participerait à l'évènement: {{ event.name }} depuis le site Apéro.<br />
 	</body>
 </html>
