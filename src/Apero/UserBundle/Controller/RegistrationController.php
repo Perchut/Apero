@@ -2,6 +2,7 @@
 
 namespace Apero\UserBundle\Controller;
 
+use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\FOSUserEvents;
@@ -59,7 +60,7 @@ class RegistrationController extends BaseController
             }
         }
     
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.twig', array(
                 'form' => $form->createView(),
         ));
 
