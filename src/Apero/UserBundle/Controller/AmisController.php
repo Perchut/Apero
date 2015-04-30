@@ -2,6 +2,8 @@
 
 namespace Apero\UserBundle\Controller;
 
+use Apero\UserBundle\Entity\User;
+use Apero\UserBundle\Entity\GroupeAmis;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

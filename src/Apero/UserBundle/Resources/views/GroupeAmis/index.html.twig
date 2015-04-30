@@ -1,0 +1,27 @@
+{% extends "AperoUserBundle::layout.html.twig" %}
+
+{% block title %}
+	Les groupes d'amis - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    
+  <h3>Liste des Groupes d'amis</h3>
+
+  <div>
+        <ul>
+        	{% for groupeAmis in listGroupesAmis %}
+                <li>{{ groupeAmis.name }}</li>
+            {% else %}
+                <li>Aucun groupes d'amis dans la liste.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
