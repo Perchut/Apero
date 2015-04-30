@@ -3,12 +3,13 @@
 namespace Apero\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegistrationController extends BaseController
 {
-    public function registerAction()
+    public function registerAction(Request $request)
     {
-        $response = parent::registerAction();
+        parent::registerAction();
 
         $message = \Swift_Message::newInstance()
                     ->setSubject("Nouvel Utilisateur")
@@ -17,8 +18,6 @@ class RegistrationController extends BaseController
                     ->setBody($this->renderView('AperoUserBundle:Mail:new_user.html.twig', array('user' => $user) ), 'text/html')
         ;
         $this->get('mailer')->send($message);
-
-        return $response;
     }
 }
 
