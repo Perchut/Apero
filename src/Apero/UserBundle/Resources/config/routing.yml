@@ -13,3 +13,7 @@ apero_user_role_non_validate:
 apero_user_role_non_admin:
     path:    /Users/non-admin
     defaults: { _controller: AperoUserBundle:UserRole:nonAdmin }
+
+apero_user_amis_homepage:
+    path:    /Amis
+    defaults: { _controller: AperoUserBundle:Amis:index }

@@ -36,10 +36,7 @@ class RegistrationController extends BaseController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
     
-                $userManager->updateUser($user);
-                
-                
-                
+                $userManager->updateUser($user);                
     
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
@@ -48,6 +45,7 @@ class RegistrationController extends BaseController
     
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
+                //Ajout de la création du groupe pour les amis et du mail à l'admin.
                 $message = \Swift_Message::newInstance()
                             ->setSubject("Nouvel Utilisateur")
                             ->setFrom('admin@perchut.org')
