@@ -23,11 +23,17 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Apero\UserBundle\Entity\User", inversedBy="users", cascade={"persist"})
+     */
+    private $groupesAmis;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
 	   parent::__construct();
+       $this->groupesAmis = new ArrayCollection();
     }
 
     /**
@@ -38,6 +44,27 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    public function addGroupeAmis(GroupeAmis $groupeAmis)
+    {
+        $this->groupesAmis[] = $groupeAmis;
+
+        $groupeAmis->addUser($this);
+
+        return $this;
+    }
+
+    public function removeGroupesAmis(GroupeAmis $groupeAmis)
+    {
+        $this->groupesAmis->removeElement($groupeAmis);
+
+        $groupeAmis->removeUser($this);
+    }
+
+    public function getGroupesAmis()
+    {
+        return $this->groupesAmis;
     }
 
 }
