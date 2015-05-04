@@ -23,7 +23,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Apero\UserBundle\Entity\User", inversedBy="users", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="GroupeAmis", mappedBy="users")
      */
     private $groupesAmis;
 

@@ -29,7 +29,8 @@ class GroupeAmis
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Apero\UserBundle\Entity\User", mappedBy="groupesAmis")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="groupesAmis")
+     * @ORM\JoinTable(name="users_amis")
      */
     private $users;
 
