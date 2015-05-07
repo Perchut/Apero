@@ -19,27 +19,27 @@ apero_user_amis_homepage:
     defaults: { _controller: AperoUserBundle:Amis:index }
 
 apero_user_groupe_amis_homepage:
-    path:    /GroupesAmis
+    path:    /GroupesAmis/liste
     defaults: { _controller: AperoUserBundle:GroupeAmis:index }
 
 apero_user_groupe_amis_add:
     path:    /GroupesAmis/add
-    defaults: { _controller: AperoUserBundle:Amis:add }
+    defaults: { _controller: AperoUserBundle:GroupeAmis:add }
 
-apero_user_groupe_amis_remove:
+apero_user_groupe_amis_delete:
     path:    /GroupesAmis/{id}/delete
-    defaults: { _controller: AperoUserBundle:Amis:delete, id: 1 }
+    defaults: { _controller: AperoUserBundle:GroupeAmis:delete, id: 1 }
     requirements:
         id: \d+
 
 apero_user_groupe_amis_edit:
     path:    /GroupesAmis/{id}/edit
-    defaults: { _controller: AperoUserBundle:Amis:edit, id: 1 }
+    defaults: { _controller: AperoUserBundle:GroupeAmis:edit, id: 1 }
     requirements:
         id: \d+
 
 apero_user_groupe_amis_view:
     path:    /GroupesAmis/{id}
-    defaults: { _controller: AperoUserBundle:Amis:view, id: 1 }
+    defaults: { _controller: AperoUserBundle:GroupeAmis:view, id: 1 }
     requirements:
         id: \d+

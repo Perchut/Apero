@@ -1,0 +1,69 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+	Modifier - {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@AperoEventBundle/Resources/public/js/jquery.js' output='js/compiled/main.css' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+{% block AperoEvent_body %}
+
+    <script type="text/javascript">
+        $(function(){
+            var amisString = "{{ amis }}";
+            var amis = amisString.split(' ');
+            var total = {{ total }}
+            
+            for (var j=0; j<total; j++)
+            {
+                var isAmi = false;
+                for (var i = 0; i<amis.length; i++)
+                {
+                    var chiffre = $("#apero_userbundle_groupeamis_amis_"+j).val();
+                    if (i!=0 && (chiffre == amis[i]))
+                    {
+                        isAmi = true;
+                    }
+                }
+
+                if (isAmi == true)
+                {
+                    $("#apero_userbundle_groupeamis_amis_"+j).prop('checked', true);    
+                }
+            }
+        });
+    </script>
+
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+
+    <div class='listes'>
+        <h3>Ajouter ou retirer des Amis</h3>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+
+        {{ form_row(form.amis) }}
+        {{ form_row(form.Modifier) }}
+
+        {{ form_rest(form) }}
+  
+        {{ form_end(form) }}
+
+    </div>
+	<div>
+		<a href="{{ path('apero_user_groupe_amis_view', {'id': groupe.id}) }}"><button>Retour au groupe</button></a>
+	</div>
+
+{% endblock %}

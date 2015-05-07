@@ -1,0 +1,76 @@
+<?php
+
+namespace Apero\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * AmisGroupe
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Apero\UserBundle\Entity\AmisGroupeRepository")
+ */
+class AmisGroupe
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="favoris", type="boolean")
+     */
+    private $favoris;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Apero\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Apero\UserBundle\Entity\GroupeAmis")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupe;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set favoris
+     *
+     * @param boolean $favoris
+     * @return AmisGroupe
+     */
+    public function setFavoris($favoris)
+    {
+        $this->favoris = $favoris;
+    
+        return $this;
+    }
+
+    /**
+     * Get favoris
+     *
+     * @return boolean 
+     */
+    public function getFavoris()
+    {
+        return $this->favoris;
+    }
+}

@@ -29,6 +29,32 @@ class GroupeAmis
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn()
+     */
+    private $users;
+
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    public function addUser(User $user)
+    {
+        $this->users->add($user);
+    }
+
+    public function removeUser(User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    public function getUsers()
+    {
+        $this->users;
+    }
 
     /**
      * Get id
@@ -62,5 +88,4 @@ class GroupeAmis
     {
         return $this->name;
     }
-
 }

@@ -1,0 +1,25 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer un Groupe - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+	<h3>Groupe - {{ groupe.name }}</h3>
+
+<div class='Ev'>
+	<p>
+    	Etes-vous certain de vouloir supprimer le groupe "{{ groupe.name }}" ?
+	</p>
+
+	<form action="{{ path('apero_user_groupe_amis_delete', {'id': groupe.id}) }}" method="post">
+		<input type="submit" value="Supprimer"" />
+		{{ form_rest(form) }}
+	</form>
+	<a href="{{ path('apero_user_groupe_amis_view', {'id': groupe.id}) }}">
+		<button>Retour au groupe</button>
+	</a>
+</div>
+	
+{% endblock %}

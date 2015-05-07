@@ -1,0 +1,32 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Groupe - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+	    <div class="flash-notice">
+	        {{ flashMessage }}
+	    </div>
+	{% endfor %}
+
+	<h3>Groupe - {{ groupe.name }}</h3>
+
+	<div class='viewB'>
+    	Membres du groupes:
+    	<ul>
+    		{% for AmisGroupe in listeAmisGroupes  %}
+    			<li>{{ AmisGroupe.user.username }}</li>
+    		{% else %}
+    			<li>Pas encore de membres</li>
+    		{% endfor %}
+    	</ul>
+    	<br /><br />
+    	<a href="{{ path('apero_user_groupe_amis_homepage') }}"><button>Retour à la liste</button></a>
+  		<a href="{{ path('apero_user_groupe_amis_edit', {'id': groupe.id}) }}"><button>Modifier</button></a>
+  		<a href="{{ path('apero_user_groupe_amis_delete', {'id': groupe.id}) }}"><button>Supprimer</button></a>
+	</div>
+	
+{% endblock %}

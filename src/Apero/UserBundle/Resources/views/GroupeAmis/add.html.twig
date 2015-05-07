@@ -1,0 +1,17 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un Groupe - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+  <h3>Nouveau Groupe</h3>
+
+  <div class='formE'>
+    {{ form(form) }}
+    <br /><br />
+    <a href="{{ path('apero_user_groupe_amis_homepage') }}"><button>Retour à la liste</button></a>
+  </div>
+
+{% endblock %}

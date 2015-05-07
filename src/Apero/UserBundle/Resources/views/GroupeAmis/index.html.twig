@@ -17,7 +17,7 @@
   <div>
         <ul>
         	{% for groupeAmis in listGroupesAmis %}
-                <li>{{ groupeAmis.name }}</li>
+                <a href="{{ path('apero_user_groupe_amis_view', {'id': groupeAmis.id}) }}"><li>{{ groupeAmis.name }}</li></a>
             {% else %}
                 <li>Aucun groupes d'amis dans la liste.</li>
             {% endfor %}
