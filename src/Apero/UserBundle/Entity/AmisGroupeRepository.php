@@ -27,4 +27,32 @@ class AmisGroupeRepository extends EntityRepository
 			->getResult()
 		;
 	}
+
+	public function findbyUser($userID)
+	{
+		$qb = $this->createQueryBuilder('ua');
+		$qb->where('ua.user = :user')
+			->setParameter('user', $userID)
+		;
+
+		return $qb
+			->getQuery()
+			->getResult()
+		;
+	}
+
+	public function findbyGroupeAndUser($groupeID, $userID)
+	{
+		$qb = $this->createQueryBuilder('ua');
+		$qb->where('ua.groupe = :groupe')
+			->setParameter('groupe', $groupeID)
+			->andWhere('ua.user = :user')
+			->setParameter('user', $userID)
+		;
+
+		return $qb
+			->getQuery()
+			->getResult()
+		;
+	}
 }

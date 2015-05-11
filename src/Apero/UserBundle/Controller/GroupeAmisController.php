@@ -143,13 +143,32 @@ class GroupeAmisController extends Controller
             $data = $form->get('amis')->getData();
             $em->persist($groupe);
 
+            $listeAmisID = array();
+            foreach ($listeAmisGroupes as $AmisGroupe)
+            {
+                $listeAmisID[] = $AmisGroupe->getUser()->getID();
+            }
+
+            foreach ($listeAmisID as $AmisID)
+            {
+                if(!in_array($AmisID, $data))
+                {
+                    $amisGroupe = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupeAndUser($groupe->getId(), $AmisID);
+                    $em->remove($amisGroupe[0]);
+                }
+            }
+
             foreach ($data as $userID)
             {
-                $amisGroupe = new AmisGroupe();
-                $amisGroupe->setUser($um->findUserBy(array('id' => $userID)));
-                $amisGroupe->setGroupe($groupe);
-                $amisGroupe->setFavoris(false);
-                $em->persist($amisGroupe);
+                $existFriend = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupeAndUser($groupe->getId(), $userID);
+                if (count($existFriend) <= 0)
+                {
+                    $amisGroupe = new AmisGroupe();
+                    $amisGroupe->setUser($um->findUserBy(array('id' => $userID)));
+                    $amisGroupe->setGroupe($groupe);
+                    $amisGroupe->setFavoris(false);
+                    $em->persist($amisGroupe);
+                }
             }
 
             $em->flush();
