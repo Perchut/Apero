@@ -2,6 +2,16 @@ parameters:
 #    apero_user.example.class: Apero\UserBundle\Example
 
 services:
+    apero_user.registration.form.type:
+        class: Apero\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias apero_user_registration }
+    apero_user.profile.form.type:
+        class: Apero\UserBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias apero_user_profile }
 #    apero_user.example:
 #        class: %apero_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

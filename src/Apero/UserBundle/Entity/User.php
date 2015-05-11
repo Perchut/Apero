@@ -24,6 +24,13 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="gender", type="boolean")
+     */
+    private $gender;
+
+    /**
      * Get id
      *
      * @return integer
@@ -31,6 +38,29 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param boolean $gender
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return boolean 
+     */
+    public function getGender()
+    {
+        return $this->gender;
     }
 
 }

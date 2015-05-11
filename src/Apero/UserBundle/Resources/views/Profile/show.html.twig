@@ -9,6 +9,8 @@
     {% block fos_user_content %}
         <h3>Votre Profil</h3>
         {% include "FOSUserBundle:Profile:show_content.html.twig" %}
+        Sexe: {% if user.gender %} Homme {% else %} Femme {% endif %}
+        <br /><br />
         <div>
             <a href="{{ path('fos_user_profile_edit') }}"><button>Modifier le profil</button></a>
             <a href="{{ path('fos_user_change_password') }}"><button>Modifier le mot de passe</button></a>

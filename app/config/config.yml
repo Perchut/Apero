@@ -69,6 +69,12 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Apero\UserBundle\Entity\User
+    registration:
+        form:
+            type: apero_user_registration
+    profile:
+        form:
+            type: apero_user_profile
 
 # fosRest
 fos_rest:
