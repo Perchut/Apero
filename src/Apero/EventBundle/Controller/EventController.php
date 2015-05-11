@@ -45,7 +45,7 @@ class EventController extends Controller
 			'multiple' => true,
 			'mapped' => false,
 		));
-		$formBuilder->add('Créer',   'submit');
+		$formBuilder->add('Creer',   'submit');
 
 		$form = $formBuilder->getForm();
 
@@ -352,14 +352,18 @@ class EventController extends Controller
 
     public function getListeInvites($currentUser)
     {
-    	$userManager = $this->get('fos_user.user_manager');
-    	$users = $userManager->findUsers();
+        $em = $this->getDoctrine()->getManager();
+        $listgroupe = $em->getRepository('AperoUserBundle:GroupeAmis')->findbyName($currentUser->getUsername());
+        $groupe = $listgroupe[0];
+
+        $listeAmisGroupe = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
+
     	$invites = array();
-    	foreach ($users as $user)
+    	foreach ($listeAmisGroupe as $AmisGroupe)
     	{
-    		if($user != $currentUser)
+    		if($AmisGroupe->getUser() != $currentUser)
     		{
-    			$invites[$user->getId()] = $user->getUsername();
+    			$invites[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
     		}
     	}
 

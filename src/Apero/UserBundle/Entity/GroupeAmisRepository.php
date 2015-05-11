@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class GroupeAmisRepository extends EntityRepository
 {
+	public function findbyName($groupeName)
+	{
+		$qb = $this
+			->createQueryBuilder('ga')
+		;
+
+		$qb->where('ga.name = :name')
+				->setParameter('name', $groupeName)
+		;
+
+		return $qb
+			->getQuery()
+			->getResult()
+		;
+	}
 }

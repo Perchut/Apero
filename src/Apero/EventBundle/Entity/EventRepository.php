@@ -14,7 +14,7 @@ class EventRepository extends EntityRepository
 {
 	public function getEventsWhereInvited($user)
 	{
-		$date = new \Datetime();
+		$date = new \Datetime("- 1 day");
 		$qb = $this
 			->createQueryBuilder('e')
 			->leftJoin('e.eventUsers', 'eu')
@@ -39,7 +39,7 @@ class EventRepository extends EntityRepository
 
 	public function getEventsWhereParticipant($user)
 	{
-		$date = new \Datetime();
+		$date = new \Datetime("- 1 day");
 		$qb = $this
 			->createQueryBuilder('e')
 			->leftJoin('e.eventUsers', 'eu')

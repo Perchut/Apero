@@ -18,6 +18,10 @@ apero_user_amis_homepage:
     path:    /Amis
     defaults: { _controller: AperoUserBundle:Amis:index }
 
+apero_user_amis_edit:
+    path:    /Amis/edit
+    defaults: { _controller: AperoUserBundle:Amis:edit }
+
 apero_user_groupe_amis_homepage:
     path:    /GroupesAmis/liste
     defaults: { _controller: AperoUserBundle:GroupeAmis:index }

@@ -1,0 +1,30 @@
+{% extends "AperoEventBundle::layout.html.twig" %}
+
+{% block title %}
+  Mes Amis - {{ parent() }}
+{% endblock %}
+
+{% block AperoEvent_body %}
+
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+	    <div class="flash-notice">
+	        {{ flashMessage }}
+	    </div>
+	{% endfor %}
+
+	<h3>Mes Amis</h3>
+
+	<div class='viewB'>
+    	<ul>
+    		{% for AmisGroupe in listeAmisGroupes  %}
+    			<li>{{ AmisGroupe.user.username }}</li>
+    		{% else %}
+    			<li>Pas encore de membres</li>
+    		{% endfor %}
+    	</ul>
+    	<br /><br />
+    	<a href="{{ path('apero_user_amis_homepage') }}"><button>Retour à la liste</button></a>
+  		<a href="{{ path('apero_user_amis_edit') }}"><button>Modifier</button></a>
+	</div>
+	
+{% endblock %}

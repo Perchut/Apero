@@ -2,6 +2,7 @@
 
 namespace Apero\UserBundle\Controller;
 
+use Apero\UserBundle\Entity\GroupeAmis;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +47,12 @@ class RegistrationController extends BaseController
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 //Ajout de la création du groupe pour les amis et du mail à l'admin.
+                $groupe = new GroupeAmis();
+                $groupe->setName($user->getUsername());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($groupe);
+                $em->flush();
+
                 $message = \Swift_Message::newInstance()
                             ->setSubject("Nouvel Utilisateur")
                             ->setFrom('admin@perchut.org')

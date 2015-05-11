@@ -70,12 +70,13 @@ class GroupeAmisController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $groupe = $em->getRepository('AperoUserBundle:GroupeAmis')->find($id);
-        $listeAmisGroupes = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
 
         if (null === $groupe)
         {
             throw $this->createNotFoundException("Le groupe d'id ".$id." n'existe pas.");
         }
+
+        $listeAmisGroupes = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
 
         return $this->render('AperoUserBundle:GroupeAmis:view.html.twig', array(
             'groupe' => $groupe,
