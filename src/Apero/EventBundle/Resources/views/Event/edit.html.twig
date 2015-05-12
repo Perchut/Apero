@@ -24,6 +24,41 @@
 
 <script type="text/javascript">
 	$(function(){
+		{% if event.genre == true %}
+			$('#apero_eventbundle_event_invites').empty();
+			{% for id,name in allMen %}
+				var participe = false;
+				{% for participant in participants %}
+					{% if participant == id %}
+						var participe = true;
+					{% endif %}
+				{% endfor %}
+				if (participe)
+				{
+					$('#apero_eventbundle_event_invites').append("<option value='" +"{{ id }}"+ "' selected=selected>" +"{{ name }}"+ "</option>");
+				}
+				else
+				{
+					$('#apero_eventbundle_event_invites').append("<option value='" +"{{ id }}"+ "'>" +"{{ name }}"+ "</option>");
+				}
+			{% endfor %}
+		{% endif %}
+
+
+		$('#apero_eventbundle_event_genre_0').on('click', function(){
+			$('#apero_eventbundle_event_invites').empty();
+			{% for id,name in allMen %}
+				$('#apero_eventbundle_event_invites').append("<option value='" +"{{ id }}"+ "'>" +"{{ name }}"+ "</option>");
+			{% endfor %}
+		});
+
+		$('#apero_eventbundle_event_genre_1').on('click', function(){
+			$('#apero_eventbundle_event_invites').empty();
+			{% for id,name in allInvites %}
+				$('#apero_eventbundle_event_invites').append("<option value='" +"{{ id }}"+ "'>" +"{{ name }}"+ "</option>");
+			{% endfor %}
+		});
+
 	    $("#form_date input").each(function(){
 	        $(this).attr("readonly","readonly");
 	    });
@@ -48,15 +83,13 @@
     {{ form_row(form.name) }}<br />
     {{ form_row(form.date) }}<br />
     {{ form_row(form.bar) }}<br />
+    <a href="{{ path('apero_bar_add') }}"><button>Ajouter un Bar</button></a><br /><br />
+	{{ form_row(form.genre) }}<br />
     {{ form_row(form.invites) }}<br />
+    <br />
     {{ form_row(form.Modifier) }}<br />
     {{ form_rest(form) }}
     {{ form_end(form) }}
     <a href="{{ path('apero_event_homepage') }}"><button>Retour à la liste</button></a>
   </div>
-
-  <div>
-    
-  </div>
-
 {% endblock %}

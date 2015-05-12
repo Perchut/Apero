@@ -42,6 +42,12 @@ class Event
     private $date;
 
     /**
+     *
+     * @ORM\Column(name="genre", type="boolean")
+     */
+    private $genre;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Apero\UserBundle\Entity\User")
      */
     private $createdBy;
@@ -196,5 +202,28 @@ class Event
     public function getEventUsers()
     {
         return $this->eventUsers;
+    }
+
+    /**
+     * Set genre
+     *
+     * @param boolean $genre
+     * @return Event
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+    
+        return $this;
+    }
+
+    /**
+     * Get genre
+     *
+     * @return boolean 
+     */
+    public function getGenre()
+    {
+        return $this->genre;
     }
 }

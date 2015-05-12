@@ -37,6 +37,7 @@ class EventController extends Controller
 	    }
 
     	$event = new Event();
+        $event->setGenre(false);
 
         $em = $this->getdoctrine()->getManager();
 
@@ -62,7 +63,7 @@ class EventController extends Controller
 		$formBuilder = $this->get('form.factory')->createBuilder(new EventType(), $event);
 		$formBuilder->add('invites', 'choice', array(
 			'label' => 'Invités: ',
-			'choices' => $allMen,
+			'choices' => $allInvites,
 			'multiple' => true,
 			'mapped' => false,
 		));
@@ -174,12 +175,52 @@ class EventController extends Controller
 	    {
 	    	throw $this->createNotFoundException("L'évènement' d'id ".$id." n'existe pas.");
 	    }
-	    $listeInvites = $this->getListeInvites($this->getUser());
-        $invites = $this->getInvites($event);
+
+        $listgroupe = $em->getRepository('AperoUserBundle:GroupeAmis')->findbyName($this->getUser()->getUsername());
+        $groupe = $listgroupe[0];
+
+        $listeAmisGroupe = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
+        $allInvites = array();
+        $allMen = array();
+
+        foreach ($listeAmisGroupe as $AmisGroupe)
+        {
+            if( $AmisGroupe->getUser() != $this->getUser() )
+            {
+                if ($AmisGroupe->getUser()->getGender() == true)
+                {
+                    $allMen[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
+                }
+                $allInvites[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
+            }
+        }
+
+        if ($event->getGenre() == true)
+        {
+            $listeInvites = $allMen;
+        }
+        else
+        {
+            $listeInvites = $allInvites;   
+        }
+
+        $invites = array();
+        $eventInvites = array();
+        $eventUsers = $event->getEventUsers();
+        foreach ($eventUsers as $eventUser)
+        {
+            if ($eventUser->getInvite() == true)
+            {
+                $user = $eventUser->getUser();
+                $invites[$user->getId()] = $user->getUsername();
+                $eventInvites[] = $user->getId();
+            }
+        }
+
         $formBuilder = $this->get('form.factory')->createBuilder(new EventType(), $event);
 		$formBuilder->add('invites', 'choice', array(
 			'label' => 'Invités',
-			'choices' => $listeInvites,
+			'choices' => $allInvites,
 			'multiple' => true,
 			'mapped' => false,
             'data' => array_keys($invites),
@@ -192,9 +233,13 @@ class EventController extends Controller
     	if ($form->handleRequest($request)->isValid())
     	{
             $invites = $form->get('invites')->getData();
+
     		$um =$this->get('fos_user.user_manager');
     		$eventUsers = $event->getEventUsers();
             $participantsID = array();
+            $invitesID = array();
+
+            //On récupère la liste de tous les invites et participants
     		foreach ($eventUsers as $eventUser)
     		{
                 if ($eventUser->getParticipant() == true)
@@ -202,42 +247,55 @@ class EventController extends Controller
                     $user = $eventUser->getUser();
                     $participantsID[] = $user->getID();
                 }
-    			if ($eventUser->getUser() != $event->getCreatedBy())
+
+                if ($eventUser->getInvite() == true)
                 {
-                    $event->removeEventUser($eventUser);
-                    $em->remove($eventUser);
+                    $user = $eventUser->getUser();
+                    $invitesID[] = $user->getID();
                 }
     		}
-            foreach ($participantsID as $participantID)
+            if ($this->getUser() == $event->getCreatedBy())
             {
-                if(!in_array($participantID, $invites))
+                $invites[] = $this->getUser()->getId();
+            }
+
+            //On parcours les anciens invités pour supprimer ceux qui ne le sont plus
+            foreach ($invitesID as $oldInvite)
+            {
+                if (!in_array($oldInvite, $invites))
                 {
-                    $participant = $um->findUserBy(array('id' => $participantID));
+                    $participant = $um->findUserBy(array('id' => $oldInvite));
                     $eu = $em->getRepository('AperoEventBundle:EventUser')->findbyEventandUser($event, $participant);
-                    $event->removeEventUser($eu);
-                    $em->remove($eu);
+                    $euEntity = $eu[0];
+                    $event->removeEventUser($euEntity);
+                    $em->remove($euEntity);
+                    //Ajouter envoie mail pour plus invité
                 }
             }
-    		foreach ($invites as $inviteID)
-    		{
-    			$invite = $um->findUserBy(array('id' => $inviteID));
-    			$newInvite[] = $invite;
-    			foreach ($eventUsers as $eventUser)
-    			{
-    				if ($eventUser->getUser() == $invite)
-    				{
-    					$eventUser->setInvite(true);
-    				}
-    				else
-    				{
-    					$eventUser = new EventUser();
-    					$eventUser->setEvent($event);
-    					$eventUser->setUser($invite);
-    					$eventUser->setInvite(true);
-    				}
-    				$em->persist($eventUser);
-    			}
-    		}
+
+            //On refait un tableau des déjà invité non supprimés
+            $tempListe = $event->getEventUsers();
+            $newInvites=array();
+            foreach ($tempListe as $temp)
+            {
+                $newInvites[] = $temp->getUser()->getId();
+            }
+
+            //On ajoute le snouveau invité non présents dans la liste précédente
+            foreach ($invites as $invite)
+            {
+                if(!in_array($invite, $newInvites))
+                {
+                    $user = $um->findUserBy(array('id' => $invite));
+                    $eventUser = new EventUser();
+                    $eventUser->setEvent($event);
+                    $eventUser->setUser($user);
+                    $eventUser->setInvite(true);
+                    $em->persist($eventUser);
+                    $event->addEventUser($eventUser);
+                }
+            }
+            
     		$em->persist($event);
     		$em->flush();
 
@@ -249,6 +307,9 @@ class EventController extends Controller
 	    return $this->render('AperoEventBundle:Event:edit.html.twig', array(
 	      'form' => $form->createView(),
 	      'event' => $event,
+          'allInvites' => $allInvites,
+          'allMen' => $allMen,
+          'participants' => $eventInvites,
 	    ));
     }
 
@@ -370,41 +431,5 @@ class EventController extends Controller
         $this->get('mailer')->send($message);
 
     	return $this->redirect($this->generateUrl('apero_event_view', array('id' => $event->getId())));
-    }
-
-    public function getListeInvites($currentUser)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $listgroupe = $em->getRepository('AperoUserBundle:GroupeAmis')->findbyName($currentUser->getUsername());
-        $groupe = $listgroupe[0];
-
-        $listeAmisGroupe = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
-
-    	$invites = array();
-    	foreach ($listeAmisGroupe as $AmisGroupe)
-    	{
-    		if(($AmisGroupe->getUser() != $currentUser) && ($AmisGroupe->getUser()->getGender() == true))
-    		{
-    			$invites[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
-    		}
-    	}
-
-    	return $invites;
-    }
-
-    public function getInvites($event)
-    {
-        $invites = array();
-        $eventUsers = $event->getEventUsers();
-        foreach ($eventUsers as $eventUser)
-        {
-            if ($eventUser->getInvite() == true)
-            {
-                $user = $eventUser->getUser();
-                $invites[$user->getId()] = $user->getUsername();
-            }
-        }
-
-        return $invites;
     }
 }

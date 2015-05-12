@@ -32,6 +32,12 @@ class EventType extends AbstractType
                 'property' => 'nom',
                 'label' => 'Bar: '
             ))
+            ->add('genre', 'choice', array(
+                'label' => "Type d'évènement",
+                'choices' => array(1 => 'Men Only', 0 => 'Open Vagina'),
+                'expanded' => true,
+                'mapped' => true,    
+            ))
         ;
     }
     

@@ -29,9 +29,8 @@ class Event
     private $name;
 
     /**
-     * @var string
      *
-     * @ORM\ManytoOne(targetEntity="Apero\EventBundle\Entity\Bar")
+     * @ORM\ManyToOne(targetEntity="Apero\EventBundle\Entity\Bar")
      */
     private $bar;
 
@@ -41,6 +40,12 @@ class Event
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+
+    /**
+     *
+     * @ORM\Column(name="genre", type="boolean")
+     */
+    private $genre;
 
     /**
      * @ORM\ManyToOne(targetEntity="Apero\UserBundle\Entity\User")
