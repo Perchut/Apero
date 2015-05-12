@@ -37,11 +37,32 @@ class EventController extends Controller
 	    }
 
     	$event = new Event();
-    	$invites = $this->getListeInvites($this->getUser());
+
+        $em = $this->getdoctrine()->getManager();
+
+        $listgroupe = $em->getRepository('AperoUserBundle:GroupeAmis')->findbyName($this->getUser()->getUsername());
+        $groupe = $listgroupe[0];
+
+        $listeAmisGroupe = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
+        $allInvites = array();
+        $allMen = array();
+
+        foreach ($listeAmisGroupe as $AmisGroupe)
+        {
+            if( $AmisGroupe->getUser() != $this->getUser() )
+            {
+                if ($AmisGroupe->getUser()->getGender() == true)
+                {
+                    $allMen[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
+                }
+                $allInvites[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
+            }
+        }
+
 		$formBuilder = $this->get('form.factory')->createBuilder(new EventType(), $event);
 		$formBuilder->add('invites', 'choice', array(
 			'label' => 'Invités: ',
-			'choices' => $invites,
+			'choices' => $allMen,
 			'multiple' => true,
 			'mapped' => false,
 		));
@@ -51,7 +72,6 @@ class EventController extends Controller
 
     	if ($form->handleRequest($request)->isValid())
     	{
-    		$em = $this->getdoctrine()->getManager();
     		$event->setCreatedBy($this->getUser());
     		$em->persist($event);
 
@@ -100,6 +120,8 @@ class EventController extends Controller
 
 	    return $this->render('AperoEventBundle:Event:add.html.twig', array(
 	      'form' => $form->createView(),
+          'allInvites' => $allInvites,
+          'allMen' => $allMen,
 	    ));
     }
 
@@ -361,7 +383,7 @@ class EventController extends Controller
     	$invites = array();
     	foreach ($listeAmisGroupe as $AmisGroupe)
     	{
-    		if($AmisGroupe->getUser() != $currentUser)
+    		if(($AmisGroupe->getUser() != $currentUser) && ($AmisGroupe->getUser()->getGender() == true))
     		{
     			$invites[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
     		}

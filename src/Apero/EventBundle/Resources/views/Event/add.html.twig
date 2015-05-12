@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block javascripts %}
-	{% javascripts '@AperoEventBundle/Resources/public/js/*.js' output='js/compiled/main.js' %}
+	{% javascripts '@AperoEventBundle/Resources/public/js/*.js' output='js/compiled/main.css' %}
 	  <script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 {% endblock %}
@@ -21,6 +21,21 @@
 
 <script type="text/javascript">
 	$(function(){
+
+		$('#men').on('click', function(){
+			$('#apero_eventbundle_event_invites').empty();
+			{% for id,name in allMen %}
+				$('#apero_eventbundle_event_invites').append("<option value='" +"{{ id }}"+ "'>" +"{{ name }}"+ "</option>");
+			{% endfor %}
+		});
+
+		$('#all').on('click', function(){
+			$('#apero_eventbundle_event_invites').empty();
+			{% for id,name in allInvites %}
+				$('#apero_eventbundle_event_invites').append("<option value='" +"{{ id }}"+ "'>" +"{{ name }}"+ "</option>");
+			{% endfor %}
+		});
+
 	    $("#form_date input").each(function(){
 	        $(this).attr("readonly","readonly");
 	    });
@@ -36,6 +51,9 @@
 	        step:5
 	    });
 	});
+
+	
+	
 </script>
 
   <h3>Nouvel Evènement</h3>
@@ -46,15 +64,14 @@
     {{ form_row(form.date) }}<br />
     {{ form_row(form.bar) }}<br />
 	<a href="{{ path('apero_bar_add') }}"><button>Ajouter un Bar</button></a><br /><br />
+	<input type="radio" id="men" name="macho" value="menOnly" checked="true">Men Only
+    <input type="radio" id="all" name="macho" value="openVagina">Open Vagina<br /><br />
     {{ form_row(form.invites) }}<br />
+    <br />
     {{ form_row(form.Creer) }}<br />
     {{ form_rest(form) }}
     {{ form_end(form) }}
     <a href="{{ path('apero_event_homepage') }}"><button>Retour à la liste</button></a>
-  </div>
-
-  <div>
-    
   </div>
 
 {% endblock %}
