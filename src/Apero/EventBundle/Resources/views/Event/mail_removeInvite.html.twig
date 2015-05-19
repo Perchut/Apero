@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0"/>
+	</head>
+	<body>
+		Bonjour {{ user.username }},
+		L'évènement: {{ event.name }} a été modifié par son créateur ou un administrateur.<br />
+		Malheuresement, vous n'y êtes plus invité.
+		L'évènement n'apparaitra donc plus dans votre tableau de bord.
+		En cas d'erreur, vous pouvez contacter le créateur de l'évènement pour qu'il corrige: {{ event.createdBy.username }}.
+	</body>
+</html>

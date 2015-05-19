@@ -269,11 +269,18 @@ class EventController extends Controller
                     $euEntity = $eu[0];
                     $event->removeEventUser($euEntity);
                     $em->remove($euEntity);
-                    //Ajouter envoie mail pour plus invité
+
+                    $message = \Swift_Message::newInstance()
+                                ->setSubject("Annulation d'évènement")
+                                ->setFrom('admin@perchut.org')
+                                ->setTo($participant->getEmail())
+                                ->setBody($this->renderView('AperoEventBundle:Event:mail_removeInvite.html.twig', array('event' => $event, 'user' => $participant)), 'text/html')
+                    ;
+                    $this->get('mailer')->send($message);
                 }
             }
 
-            //On refait un tableau des déjà invité non supprimés
+            //On refait un tableau des déjà invités non supprimés
             $tempListe = $event->getEventUsers();
             $newInvites=array();
             foreach ($tempListe as $temp)
@@ -281,7 +288,7 @@ class EventController extends Controller
                 $newInvites[] = $temp->getUser()->getId();
             }
 
-            //On ajoute le snouveau invité non présents dans la liste précédente
+            //On ajoute les nouveaux invités non présents dans la liste précédente
             foreach ($invites as $invite)
             {
                 if(!in_array($invite, $newInvites))
