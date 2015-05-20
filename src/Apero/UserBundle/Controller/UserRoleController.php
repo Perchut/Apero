@@ -57,6 +57,14 @@ class UserRoleController extends Controller
 	    	$em = $this->getDoctrine()->getManager();
     		$em->flush();
 
+            $message = \Swift_Message::newInstance()
+                                ->setSubject("Changements de droits")
+                                ->setFrom('admin@perchut.org')
+                                ->setTo($user->getEmail())
+                                ->setBody($this->renderView('AperoUserBundle:UserRole:mail_changeRole.html.twig', array('role' => $data['role'], 'user' => $user)), 'text/html')
+                    ;
+                    $this->get('mailer')->send($message);
+
     		return $this->redirect($this->generateUrl('apero_user_role_homepage'));
 	    }
 
