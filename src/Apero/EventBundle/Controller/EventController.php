@@ -100,7 +100,7 @@ class EventController extends Controller
                             ->setSubject("Invitation à un Evènement")
                             ->setFrom('admin@perchut.org')
                             ->setTo($invite->getEmail())
-                            ->setBody($this->renderView('AperoEventBundle:Event:mail_invitation.html.twig', array('event' => $event, 'user' => $this->getUser())), 'text/html')
+                            ->setBody($this->renderView('AperoEventBundle:Event:mail_invitation.html.twig', array('event' => $event, 'user' => $invite)), 'text/html')
                 ;
                 $this->get('mailer')->send($message);
     		}
