@@ -41,22 +41,19 @@ class EventController extends Controller
 
         $em = $this->getdoctrine()->getManager();
 
-        $listgroupe = $em->getRepository('AperoUserBundle:GroupeAmis')->findbyName($this->getUser()->getUsername());
-        $groupe = $listgroupe[0];
-
-        $listeAmisGroupe = $em->getRepository('AperoUserBundle:AmisGroupe')->findbyGroupe($groupe->getId());
+        $invites = $em->getRepository('AperoUserBundle:User')->findAll();
         $allInvites = array();
         $allMen = array();
 
-        foreach ($listeAmisGroupe as $AmisGroupe)
+        foreach ($invites as $AmisGroupe)
         {
-            if( $AmisGroupe->getUser() != $this->getUser() )
+            if( $AmisGroupe != $this->getUser() )
             {
-                if ($AmisGroupe->getUser()->getGender() == true)
+                if ($AmisGroupe->getGender() == true)
                 {
-                    $allMen[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
+                    $allMen[$AmisGroupe->getId()] = $AmisGroupe->getUsername();
                 }
-                $allInvites[$AmisGroupe->getUser()->getId()] = $AmisGroupe->getUser()->getUsername();
+                $allInvites[$AmisGroupe->getId()] = $AmisGroupe->getUsername();
             }
         }
 

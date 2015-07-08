@@ -34,7 +34,7 @@ class EventType extends AbstractType
             ))
             ->add('genre', 'choice', array(
                 'label' => "Type d'évènement",
-                'choices' => array(1 => 'Men Only', 0 => 'Open Vagina'),
+                'choices' => array(1 => 'Men Only', 0 => 'Ladies invited'),
                 'expanded' => true,
                 'mapped' => true,    
             ))
